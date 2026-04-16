@@ -7,9 +7,6 @@ app = FastAPI()
 class ChatRequest(BaseModel):
     prompt: str
 
-@app.get("/")
-def home():
-    return {"message": "Please provide the information about openai"}
 
 @app.post("/chat")
 def chat(req: ChatRequest):
@@ -18,12 +15,12 @@ def chat(req: ChatRequest):
 
 
 def chat_cli():
-    print("Start chatting with OpenAI. Type your prompt and press Enter. Ctrl+C to exit.")
     while True:
         try:
             prompt = input("You: ").strip()
+        
         except KeyboardInterrupt:
-            print("\nExiting chat.")
+            print("\nExit")
             break
 
         if not prompt:
@@ -31,7 +28,7 @@ def chat_cli():
             continue
 
         result = workflow.invoke({"prompt": prompt})
-        print("Bot:", result["reply"])
+        print("Result:", result["reply"])
 
 
 if __name__ == "__main__":
